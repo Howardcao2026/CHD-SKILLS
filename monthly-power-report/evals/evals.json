@@ -1,0 +1,87 @@
+{
+  "skill_name": "monthly-power-report",
+  "evals": [
+    {
+      "id": 1,
+      "name": "april-2026-full-report-generation",
+      "prompt": "我桌面上的3个Excel文件：\n1. C:/Users/Administrator/Desktop/山东公司电量计划（包利润使用）.xlsx\n2. C:/Users/Administrator/Desktop/2026-04_山东公司_风电_生产月报明细.xlsx\n3. C:/Users/Administrator/Desktop/2026-04_山东公司_光伏_生产月报明细.xlsx\n\n请生成2026年4月的月度电量生产分析报告。",
+      "expected_output": "生成包含8大章节10个ECharts图表的完整HTML报告，文件名为「山东公司2026年4月电量生产分析报告.html」",
+      "files": [],
+      "assertions": [
+        {
+          "id": "a1",
+          "description": "HTML报告文件已生成",
+          "check": "file_exists"
+        },
+        {
+          "id": "a2",
+          "description": "包含8个章节标题（一~八）",
+          "check": "content_contains"
+        },
+        {
+          "id": "a3",
+          "description": "包含10个ECharts图表初始化（chart1~chart8，含3a/3b/6a/6b）",
+          "check": "content_contains"
+        },
+        {
+          "id": "a4",
+          "description": "JavaScript中无Python if/else语法残留",
+          "check": "regex_not_match"
+        },
+        {
+          "id": "a5",
+          "description": "ECharts CDN引用正确",
+          "check": "content_contains"
+        },
+        {
+          "id": "a6",
+          "description": "发电小时数公式正确（除以装机容量万kW）",
+          "check": "content_contains"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "month-change-adaptation",
+      "prompt": "帮我生成5月的电量月报。文件在桌面：\n- 电量计划表\n- 2026-05_山东公司_风电_生产月报明细.xlsx\n- 2026-05_山东公司_光伏_生产月报明细.xlsx",
+      "expected_output": "自动适配为5月报告，标题和时间进度改为5/12=41.67%，累加1-5月计划值",
+      "files": [],
+      "assertions": [
+        {
+          "id": "b1",
+          "description": "报告标题包含「2026年5月」",
+          "check": "content_contains"
+        },
+        {
+          "id": "b2",
+          "description": "时间进度显示41.67%（5/12）",
+          "check": "content_contains"
+        },
+        {
+          "id": "b3",
+          "description": "计划累加使用1-5月而非仅1-4月",
+          "check": "content_contains"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "not-a-monthly-report-query",
+      "prompt": "帮我看看这张Excel里有几个风电场站。C:/Users/Administrator/Desktop/2026-04_山东公司_风电_生产月报明细.xlsx",
+      "expected_output": "不触发月报生成skill，而是用普通方式读取Excel回答",
+      "files": [],
+      "assertions": [
+        {
+          "id": "c1",
+          "description": "不应触发完整的月报生成流程",
+          "check": "skill_not_triggered"
+        },
+        {
+          "id": "c2",
+          "description": "读取Excel并回答场站数量",
+          "check": "output_contains_count"
+        }
+      ]
+    }
+  ]
+}
