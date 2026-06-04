@@ -9,7 +9,7 @@ Howard 的个人 AI 技能仓库，用于 WorkBuddy / Claude Code 等 Agent 环�
 | [shandong-meeting-minutes](./shandong-meeting-minutes/) | v1.2.0 | 山东公司生产月度会议纪要生成器 | 会议纪要、生产会纪要、生成纪要 |
 | [monthly-power-report](./monthly-power-report/) | v2.0 | 山东公司月度电量生产分析报告生成器 | 月报分析、电量报告、生成月报、限电率分析 |
 | [ai-pastor](./ai-pastor/) | - | AI 基督教牧养助手（讲道稿、圣经讲解、灵修） | 讲道稿、灵修、圣经讲解、ai-pastor |
-| [cgnew-energy-news](./cgnew-energy-news/) | v1.0 | 中广核新能源公众号新闻稿生成器（4型模板+联网数据补充） | 写新闻稿、会见新闻稿、拜会新闻稿 |
+| [CCTV-NEWS](./CCTV-NEWS/) | v1.0 | 新闻稿生成器（4型模板+联网数据补充） | 写新闻稿、会见新闻稿、拜会新闻稿 |
 
 ## 快速开始
 
@@ -97,7 +97,7 @@ monthly-power-report/
 - 支持大纲生成、逐字稿扩展、经文深度解读
 - 内置讲道风格指南（金句开头、生活化例子、呼召结尾）
 
-### cgnew-energy-news
+### CCTV-NEWS
 
 **功能**：根据会议/会见原始文字记录或要点，按企业公众号标准文风自动生成新闻稿。
 
@@ -109,7 +109,7 @@ monthly-power-report/
 
 **文件结构**：
 ```
-cgnew-energy-news/
+CCTV-NEWS/
 ├── SKILL.md              # 完整工作流程和数据补充规则
 └── references/
     └── template.md        # V2.0 表达范式模板（4型+词库+填空模板）
@@ -133,7 +133,7 @@ function skill-push {
         "$env:USERPROFILE\.workbuddy\skills\shandong-meeting-minutes",
         "$env:USERPROFILE\.workbuddy\skills\monthly-power-report",
         "$env:USERPROFILE\.workbuddy\skills\ai-pastor",
-        "$env:USERPROFILE\.workbuddy\skills\cgnew-energy-news"
+        "$env:USERPROFILE\.workbuddy\skills\CCTV-NEWS"
     )
 
     foreach ($src in $skills) {
