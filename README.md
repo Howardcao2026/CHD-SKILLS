@@ -9,6 +9,7 @@ Howard 的个人 AI 技能仓库，用于 WorkBuddy / Claude Code 等 Agent 环�
 | [shandong-meeting-minutes](./shandong-meeting-minutes/) | v1.2.0 | 山东公司生产月度会议纪要生成器 | 会议纪要、生产会纪要、生成纪要 |
 | [monthly-power-report](./monthly-power-report/) | v2.0 | 山东公司月度电量生产分析报告生成器 | 月报分析、电量报告、生成月报、限电率分析 |
 | [ai-pastor](./ai-pastor/) | - | AI 基督教牧养助手（讲道稿、圣经讲解、灵修） | 讲道稿、灵修、圣经讲解、ai-pastor |
+| [cgnew-energy-news](./cgnew-energy-news/) | v1.0 | 中广核新能源公众号新闻稿生成器（4型模板+联网数据补充） | 写新闻稿、会见新闻稿、拜会新闻稿 |
 
 ## 快速开始
 
@@ -96,6 +97,30 @@ monthly-power-report/
 - 支持大纲生成、逐字稿扩展、经文深度解读
 - 内置讲道风格指南（金句开头、生活化例子、呼召结尾）
 
+### cgnew-energy-news
+
+**功能**：根据会议/会见原始文字记录或要点，按企业公众号标准文风自动生成新闻稿。
+
+**特点**：
+- 4 种稿件类型全覆盖（集团拜会省领导 / 集团会见伙伴 / 公司拜会市县 / 公司会见伙伴）
+- 内置完整高层次词汇库、格式规范和 4 套填空模板
+- ⭐ 自动搜索互联网最新数据补充稿件说服力（装机量、政策目标等）
+- 所有模板均已脱敏，可直接部署到公开仓库
+
+**文件结构**：
+```
+cgnew-energy-news/
+├── SKILL.md              # 完整工作流程和数据补充规则
+└── references/
+    └── template.md        # V2.0 表达范式模板（4型+词库+填空模板）
+```
+
+**使用方式**：
+```
+用户：公司董事长今天去拜访了某市市长，谈了十五五新能源布局和储能建设，写一篇新闻稿
+→ Agent 自动判断类型 → 搜索互联网补充数据 → 按模板生成稿件
+```
+
 ## 自动同步脚本
 
 在 PowerShell 中添加以下函数，实现一键推送更新：
@@ -107,7 +132,8 @@ function skill-push {
     $skills = @(
         "$env:USERPROFILE\.workbuddy\skills\shandong-meeting-minutes",
         "$env:USERPROFILE\.workbuddy\skills\monthly-power-report",
-        "$env:USERPROFILE\.workbuddy\skills\ai-pastor"
+        "$env:USERPROFILE\.workbuddy\skills\ai-pastor",
+        "$env:USERPROFILE\.workbuddy\skills\cgnew-energy-news"
     )
 
     foreach ($src in $skills) {
