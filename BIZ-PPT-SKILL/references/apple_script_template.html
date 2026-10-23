@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="docx-page-size" content="A4">
+<title>XX 公司季度生产运营报告 逐字讲稿（结构模板）</title>
+<style>
+/* 页面规则：封面无页码，正文页脚居中页码 */
+@page {
+  @bottom-center { content: counter(page); }
+}
+@page cover {
+  @bottom-center { content: none; }
+}
+section[role="cover"] { page: cover; }
+
+:root {
+  --fs-cover: 26pt;
+  --fs-h1: 15pt;
+  --fs-h2: 14pt;
+  --fs-h3: 11.5pt;
+  --fs-body: 12pt;
+  --fs-small: 10pt;
+
+  --color-primary: #004A86;
+  --color-secondary: #006AAF;
+  --color-accent: #00A2E9;
+  --color-text: #1D1D1F;
+  --color-muted: #6E6E73;
+  --color-light: #86868B;
+  --color-border: #D2D2D7;
+  --color-bg: #FFFFFF;
+  --color-highlight: #F6F9FC;
+  --color-soft: #FBFCFE;
+
+  --spacing-tight: 0.30em;
+  --spacing-snug: 0.50em;
+  --spacing-paragraph: 0.72em;
+  --spacing-block: 0.95em;
+  --spacing-section: 1.85em;
+
+  --ff-heading: "微软雅黑", "Microsoft YaHei", sans-serif;
+  --ff-body: "宋体", SimSun, serif;
+  --ff-data: Arial, Helvetica, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: var(--ff-body);
+  font-size: var(--fs-body);
+  line-height: 1.75;
+  color: var(--color-text);
+  background: var(--color-bg);
+}
+
+/* 封面 */
+.cover-wrap { padding: 3.4cm 2.4cm; }
+.cover-cat {
+  font-family: var(--ff-heading); font-size: var(--fs-small); color: var(--color-light);
+  margin-bottom: var(--spacing-section);
+}
+.cover-title {
+  font-family: var(--ff-heading); font-size: var(--fs-cover); font-weight: 700; color: var(--color-text);
+  line-height: 1.42; text-align: left; margin-bottom: var(--spacing-snug);
+}
+.cover-rule { width: 4.2cm; line-height: 1pt; font-size: 1pt; border-top: 1.2pt solid var(--color-text); margin: var(--spacing-section) 0 var(--spacing-block) 0; text-indent: 0; }
+.cover-sub { font-family: var(--ff-heading); font-size: var(--fs-h3); color: var(--color-muted); margin-bottom: var(--spacing-tight); }
+.cover-meta { font-family: var(--ff-heading); font-size: var(--fs-small); color: var(--color-light); margin-top: var(--spacing-section); }
+
+/* 正文 */
+.body-wrap { padding: 0 2.4cm; }
+h1 {
+  font-family: var(--ff-heading); font-size: var(--fs-h1); font-weight: 700; color: var(--color-primary);
+  margin: var(--spacing-section) 0 var(--spacing-block) 0; padding-bottom: var(--spacing-tight);
+  border-bottom: 1.4pt solid var(--color-primary); text-indent: 0; text-align: left;
+}
+h2 {
+  font-family: var(--ff-heading); font-size: var(--fs-h2); font-weight: 700; color: var(--color-text);
+  margin: var(--spacing-section) 0 var(--spacing-snug) 0; padding-bottom: var(--spacing-tight);
+  border-bottom: 0.9pt solid var(--color-border); text-indent: 0; text-align: left;
+}
+h3 {
+  font-family: var(--ff-heading); font-size: var(--fs-h3); font-weight: 700; color: var(--color-secondary);
+  margin: var(--spacing-block) 0 var(--spacing-tight) 0; text-indent: 0;
+}
+p { text-indent: 2em; margin-bottom: var(--spacing-paragraph); text-align: justify; }
+
+/* 页面提示行 */
+.pmeta {
+  font-family: var(--ff-heading); font-size: var(--fs-small); color: var(--color-muted);
+  text-indent: 0; background: none;
+  border-top: 0.8pt dashed var(--color-border); border-bottom: 0.8pt dashed var(--color-border);
+  padding: 0.12em 0; margin-bottom: var(--spacing-block);
+}
+.stop {
+  font-family: var(--ff-heading); font-size: var(--fs-small); color: var(--color-light);
+  text-indent: 0; margin-top: var(--spacing-snug); margin-bottom: var(--spacing-block);
+}
+.stop strong { color: var(--color-secondary); font-weight: 700; }
+
+/* 口播稿块 */
+.say {
+  border-left: 3pt solid var(--color-primary);
+  background: var(--color-soft);
+  padding: var(--spacing-block) var(--spacing-block) var(--spacing-tight) var(--spacing-block);
+  margin-bottom: var(--spacing-snug);
+}
+.say h3 {
+  font-family: var(--ff-heading); font-size: var(--fs-h3); font-weight: 700; color: var(--color-secondary);
+  margin: var(--spacing-block) 0 var(--spacing-tight) 0; text-indent: 0;
+}
+p { text-indent: 2em; margin-bottom: var(--spacing-snug); }
+.say p:last-child { margin-bottom: var(--spacing-tight); }
+strong { font-weight: 700; color: var(--color-primary); }
+
+/* 数据表 */
+table {
+  width: 100%; border-collapse: collapse; margin: var(--spacing-block) 0 var(--spacing-section) 0;
+  font-family: var(--ff-heading); font-size: var(--fs-small);
+}
+thead th {
+  text-align: left; font-weight: 700; color: var(--ink);
+  border-top: 1.4pt solid var(--color-text); border-bottom: 1pt solid var(--color-text);
+  padding: var(--spacing-tight) var(--spacing-snug); text-indent: 0;
+}
+tbody td {
+  border-bottom: 0.6pt solid var(--color-border); padding: var(--spacing-tight) var(--spacing-snug);
+  color: var(--color-muted); text-indent: 0;
+}
+tbody td:first-child { color: var(--color-text); font-weight: 700; }
+tbody tr:last-child td { border-bottom: 1.2pt solid var(--color-text); }
+
+/* 问答 */
+.qa-q {
+  font-family: var(--ff-heading); font-size: var(--fs-h3); font-weight: 700; color: var(--color-primary);
+  text-indent: 0; margin: var(--spacing-section) 0 var(--spacing-tight) 0;
+}
+.qa-a { text-indent: 2em; margin-bottom: var(--spacing-tight); }
+
+.executive-summary {
+  background: var(--color-highlight);
+  border-left: 3pt solid var(--color-primary);
+  padding: var(--spacing-block);
+  margin: var(--spacing-block) 0 var(--spacing-section) 0;
+}
+.es-title {
+  font-family: var(--ff-heading); font-size: var(--fs-h3); font-weight: 700;
+  color: var(--color-primary); text-indent: 0; margin-bottom: var(--spacing-tight);
+}
+.executive-summary p { text-indent: 2em; margin-bottom: var(--spacing-tight); }
+.executive-summary p:last-child { margin-bottom: 0; }
+
+.note {
+  font-family: var(--ff-heading); font-size: var(--fs-small); color: var(--color-light);
+  text-indent: 0; margin-top: var(--spacing-block);
+}
+</style>
+</head>
+<body>
+
+<section role="cover">
+  <div class="cover-wrap">
+    <p class="cover-cat">示例能源公司 · 生产管理部</p>
+    <p class="cover-title">20XX 年三季度</p>
+    <p class="cover-title" style="margin-top:0">生产运营报告 · 逐字讲稿</p>
+    <p class="cover-rule">&#160;</p>
+    <p class="cover-sub">配套《生产运营报告（财报故事版）》15 页</p>
+    <p class="cover-meta">20XX 年 10 月</p>
+  </div>
+</section>
+
+<section role="body" data-page-restart="1">
+<div class="body-wrap">
+
+<h1 style="text-align:left">20XX 年三季度生产运营报告 · 逐字讲稿</h1>
+
+<div class="executive-summary">
+<p class="es-title">一页读懂这份讲稿</p>
+<p>本文件是逐字讲稿的<b>结构模板</b>，配合 15 页 PPT 使用。正式写作时把每一节的占位内容换成当次数据即可，章节顺序与标注体系不要改。15 页正文，18—20 分钟。每页只讲一个结论，讲完顿 2 秒再翻页；加粗处需要放慢、加重。</p>
+<p>全篇重心只放两处：一处是最大的减项（通常是限电或电量缺口），一处是最后一页的全年指引。其余各页为支撑材料，按节奏带过即可。</p>
+</div>
+
+<h2 style="text-align:left">使用说明</h2>
+<p>以下四条是讲前的准备事项，正式汇报时不必念出。</p>
+
+<h3>总时长与节奏</h3>
+<p>正文 15 页，按每页 60—75 秒计，约 18—20 分钟。开场与结束各留 30 秒。</p>
+<p>每页只讲一个结论。讲完结论顿 2 秒，再翻页。不要在一页里补第二个观点——财报式版面没有第二个观点的位置。</p>
+
+<h3>翻页方式</h3>
+<p>成品不带任何转场与元素动画，翻页即硬切、整页内容一次呈现。因此不要在翻页瞬间说话，翻完先让听众看一眼，再开口。</p>
+
+<h3>重音</h3>
+<p>文中加粗处为需要放慢、加重的位置，通常是数字与判断句。一页里加粗不超过三处，多了等于没有重音。</p>
+
+<h3>口径提醒</h3>
+<p>被问到口径时必须答得上来：本季度指标为 1—9 月累计；涉及交易、售电、绿证的指标若源材料只到 8 月，必须当场说明；全年预计值要讲清含不含储能与新增装机。**口径不一致是汇报现场最容易被追问的点，宁可多写一句页脚。**</p>
+
+<h2 style="text-align:left">第 1 页　封面</h2>
+<p class="pmeta">画面：白底，标题「一个季度，四个数」，副题「20XX 年 1—9 月业绩与四季度指引」。</p>
+<div class="say">
+<p>各位领导，上午好。</p>
+<p>今天用十五分钟，汇报 1 到 9 月的生产运营情况，以及四季度的安排。</p>
+<p>先给三个数：上网电量 <strong>00.00 亿千瓦时</strong>，完成计划的 <strong>00.0%</strong>；度电考核 <strong>0.0000 元</strong>；成本支出率 <strong>00%</strong>。</p>
+<p>后面每一页，我只讲一件事。</p>
+</div>
+<p class="stop">停留：约 30 秒。</p>
+
+<h2 style="text-align:left">第 2 页　本季度一览</h2>
+<p class="pmeta">画面：三个大数字并排——电量、度电考核、限电率；每个数字下方一行小字注脚。</p>
+<div class="say">
+<p>这一页是全集。</p>
+<p>第一个数，<strong>00.00 亿千瓦时</strong>，1 到 9 月的上网电量，比计划欠了 <strong>0.00 亿</strong>。</p>
+<p>第二个数，<strong>0.0000 元每千瓦时</strong>，度电考核，低于对标均值 <strong>0.0%</strong>。</p>
+<p>第三个数，<strong>00.0%</strong>，限电率，同比上升 <strong>0</strong> 个百分点。</p>
+<p>三个数放在一起，结论是：<strong>电量欠了一点，考核守住了，限电是主要矛盾</strong>。</p>
+</div>
+<p class="stop">停留：约 70 秒。这一页是全篇的锚，宁可慢。</p>
+
+<h2 style="text-align:left">第 3 页　电量：对计划</h2>
+<p class="pmeta">画面：左侧 00.00 大数字，右侧计划与实际两根柱，差额 -0.00 亿。</p>
+<div class="say">
+<p>这一页只讲一件事：<strong>缺口有多大，缺口在哪</strong>。</p>
+<p>计划 00.00，实际 00.00，差 0.00 亿，完成率 00.0%。</p>
+<p>按项目类型拆开，<strong>存量项目贡献了七成的缺口</strong>——不是新项目拖累的。</p>
+<p>9 月单月做到 0.00 亿，欠发收窄到 0.00 亿。趋势在往回走，但幅度不够。</p>
+</div>
+<p class="stop">停留：约 60 秒。</p>
+
+<h2 style="text-align:left">第 4 页　缺口归因</h2>
+<p class="pmeta">画面：五条横条，按影响电量降序；条尾标数值，合计行在底部。</p>
+<div class="say">
+<p>五项因素，只有一项能自己解决。</p>
+<p>最大的是限电，<strong>影响 0.00 亿千瓦时</strong>；第二是风资源，<strong>0.00 亿</strong>；剩下三项加起来不到一成。</p>
+<p>限电与风占九成，<strong>这两项不是靠努力能补回来的</strong>——要么改预期，要么换战场。</p>
+</div>
+<p class="stop">停留：约 65 秒。这一页是全场第一个重点，务必讲透「限电不是我们自己的问题」。</p>
+
+<h2 style="text-align:left">附录 A　可能被问到的问题</h2>
+
+<p class="qa-q">Q1：完成率不到 100%，为什么没完成计划？</p>
+<p class="qa-a">计划是按年初资源预期编制的。实际风资源下降 0 个百分点，单这一项影响 0.00 亿千瓦时；限电上升又吃掉 0.00 亿。这两项合计 0.00 亿，远超 0.00 亿的缺口——也就是说，靠其他方面的超额已经补回了一部分。</p>
+
+<p class="qa-q">Q2：限电率上升，是我们自己的问题吗？</p>
+<p class="qa-a">分两层。相对水平不差：对标均值 00%，我们排在前面。但绝对值高，主因是外送通道受限，属通道问题。我们自己的部分是涉网性能与申报曲线，考核里已体现，正在专项治理。</p>
+
+<p class="qa-q">Q3：度电考核 0.0000 元，算什么水平？</p>
+<p class="qa-a">低于对标均值 0.0%，处于同业前列。按年上网电量折算，相当于每发一度电多让出约 0.0 厘的收益空间。</p>
+
+<p class="qa-q">Q4：四季度任务，你们真有把握吗？</p>
+<p class="qa-a">按 9 月速度，缺口 0.00 亿，坦白说没有十足把握。三条路：一是限电率回落至 00% 以内，可回约 0.00 亿千瓦时；二是重点项目按期闭环；三是把缺口如实上报，请求调整预计值。我们不建议到 12 月再报。</p>
+
+<p class="qa-q">Q5：明年的主线是什么？</p>
+<p class="qa-a">四条：设备提质、考核压降、数智提效、多元增值。增量主要看几个重点项目，全部卡在指标、接入、环评、用地上。</p>
+
+<div style="page-break-before: always;"></div>
+<h2 style="text-align:left">附录 B　关键数字速查</h2>
+
+<p class="note">数据来源：《生产运营情况汇报（20XX1020）》；口径差异已在各页标注。派生值可现场复核。</p>
+
+<table>
+<thead>
+<tr><th style="width:26%">指标</th><th style="width:24%">数值</th><th style="width:50%">口径 / 对标</th></tr>
+</thead>
+<tbody>
+<tr><td>上网电量</td><td>00.00 亿千瓦时</td><td>1—9 月，计划 00.00，完成率 00.0%</td></tr>
+<tr><td>欠发电量</td><td>0.00 亿千瓦时</td><td>存量占七成</td></tr>
+<tr><td>限电率</td><td>00.0%</td><td>同比 +0pp，对标均值 00.0%</td></tr>
+<tr><td>风电利用小时</td><td>0,000 小时</td><td>对标 +0.0%</td></tr>
+<tr><td>考核电量</td><td>0.00 亿千瓦时</td><td>占上网 00.0%</td></tr>
+<tr><td>度电考核</td><td>0.0000 元/千瓦时</td><td>低于对标 0.0%，同业第三</td></tr>
+<tr><td>运维成本</td><td>00,000 万元</td><td>支出率 00%，全年预计 00,000</td></tr>
+<tr><td>全年电量预计</td><td>00.0 亿千瓦时</td><td>含储能 0.0 亿</td></tr>
+<tr><td>四季度任务</td><td>00.00 亿千瓦时</td><td>月均 0.00 亿，9 月 0.00 亿</td></tr>
+</tbody>
+</table>
+
+
+</div>
+</section>
+
+</body>
+</html>

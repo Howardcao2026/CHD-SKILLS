@@ -10,6 +10,7 @@ Howard 的个人 AI 技能仓库，用于 WorkBuddy / Claude Code 等 Agent 环�
 | [monthly-power-report](./monthly-power-report/) | v2.0 | 山东公司月度电量生产分析报告生成器 | 月报分析、电量报告、生成月报、限电率分析 |
 | [ai-pastor](./ai-pastor/) | - | AI 基督教牧养助手（讲道稿、圣经讲解、灵修） | 讲道稿、灵修、圣经讲解、ai-pastor |
 | [CCTV-NEWS](./CCTV-NEWS/) | v1.0 | 新闻稿生成器（4型模板+联网数据补充） | 写新闻稿、会见新闻稿、拜会新闻稿 |
+| [BIZ-PPT-SKILL](./BIZ-PPT-SKILL/) | v1.0 | 企业级汇报 PPT 统一样式库（4套样式+母版安全区+矢量图表+Word逐字稿） | 做一版季度汇报、经营分析会 PPT、出财报风格、出第一性原理风格 |
 
 ## 快速开始
 
@@ -122,6 +123,51 @@ CCTV-NEWS/
 → Agent 自动判断类型 → 搜索互联网补充数据 → 按模板生成稿件
 ```
 
+### BIZ-PPT-SKILL
+
+**功能**：给定数据和一份版式蓝本（总部/上级单位的分析会报告），产出可直接套公司母版的正式汇报 PPT；同一批数据可出四套样式。
+
+**四套样式**：
+
+| 样式 | 页数 | 底色 | 定位 | 逐字稿 |
+|---|---|---|---|---|
+| A 详细版 | 30 | 白 | 内部存档、季度分析会，明细全进表格 | 可选 |
+| A′ 简略版 | 15 | 白 | 限时汇报，同类证据合并成页 | **必配** |
+| B 财报故事版 | 15 | 白 | 对外讲述，一页一个指标，guidance 收尾 | **必配** |
+| C 第一性原理版 | 14 | 近黑 | 内部研讨，巨数字 + 判断句，往下压结论 | **必配** |
+
+**特点**：
+- **母版安全区铁律**：顶部 0—0.95in 全空、不画横线、不画页码，底部止于 6.72in——套公司母版后自动补齐 logo 与页脚，不压字
+- **矢量图表**：所有柱/条/折线由形状绘制，不用 PPT 原生图表对象。实测在线文档回存会把原生图表掏空（`c:cat`/`c:val` 丢失），形状图表不会被任何转换器破坏
+- **一版一色卡**：色板全部从公司 VI 色卡取，缺正红时统一用负向橙；深色版有专门的高亮档位映射
+- **字号阶梯**：正文 14pt 下限、结论句 20pt 带完整标点、图表类目 12—13pt，两套密度共用
+- **强制配套 Word 逐字稿**：A′/B/C 页数少、版面删得干净，只给 PPT 讲不透，缺讲稿视为未交付
+- **零动画**：成品不加转场与元素动画，翻页即硬切；节奏感用静态手段（竖向进度脊）解决
+- 完整避坑表：负值柱空心、表格自带蓝白样式、批量导 PNG 出现旧图、`prs.save()` 被 PowerPoint 占用等 10 条
+
+**文件结构**：
+```
+BIZ-PPT-SKILL/
+├── SKILL.md                            # 选型、安全区、字号、配色、工作流、避坑、交付
+├── README.md                           # 安装与使用
+└── references/
+    ├── deck_lib_template.py            # 版式库（色板/页骨架/KPI卡/表格/矢量图表）
+    ├── standard_30_template.py         # 详细版骨架（含 30 页页序清单）
+    ├── standard_15_template.py         # 简略版骨架（五条合并规则）
+    ├── apple_earnings_template.py      # 财报故事版骨架
+    ├── dark_firstprinciples_template.py# 第一性原理深色版骨架
+    └── apple_script_template.html      # Word 逐字讲稿 HTML 模板（含 CSS）
+```
+
+> `references/` 里是**脱敏骨架**：页型、坐标、函数写法完整保留，文案为占位词、数值为演示值，照着扩页换数即可。
+
+**使用方式**：
+```
+用户：@BIZ-PPT-SKILL 照这份总部报告的结构，用我们的生产数据做一版季度汇报 PPT
+[附件：总部报告.pdf + 公司运营情况汇报.pptx]
+→ Agent 拆版式 → 抽数据 → 选样式 → 建 build.py → 逐页导出 PNG 自查 → 交付 PPTX + PDF
+```
+
 ## 自动同步脚本
 
 在 PowerShell 中添加以下函数，实现一键推送更新：
@@ -135,6 +181,8 @@ function skill-push {
         "$env:USERPROFILE\.workbuddy\skills\monthly-power-report",
         "$env:USERPROFILE\.workbuddy\skills\ai-pastor",
         "$env:USERPROFILE\.workbuddy\skills\CCTV-NEWS"
+        # BIZ-PPT-SKILL 不在此列：仓库里放的是脱敏骨架，
+        # 本地工作版含真实公司数据，不要直接覆盖上来。
     )
 
     foreach ($src in $skills) {
